@@ -3,6 +3,17 @@ export type Lang = "de" | "tr" | "en";
 /** German is the primary language and is served from the root. */
 export const LANGS: Lang[] = ["de", "tr", "en"];
 
+/**
+ * The locales this build actually serves.
+ *
+ * English is kept in the source so the translation stays typed and reviewable,
+ * and it is browsable in development, but production ships German and Turkish
+ * only: `proxy.ts` stops treating /en as a locale prefix, so English URLs fall
+ * through to the 404, and the switch, sitemap and hreflang tags omit it.
+ */
+export const PUBLIC_LANGS: Lang[] =
+  process.env.NODE_ENV === "production" ? ["de", "tr"] : LANGS;
+
 export type AreaSlug =
   | "zivilrecht"
   | "arbeitsrecht"

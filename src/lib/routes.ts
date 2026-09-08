@@ -1,4 +1,4 @@
-import { LANGS, type Lang } from "@/content/types";
+import { LANGS, PUBLIC_LANGS, type Lang } from "@/content/types";
 
 /**
  * German is the primary language and lives at the root; every other language is
@@ -46,7 +46,7 @@ export function swapLocale(pathname: string, target: Lang): string {
 /** hreflang map for a locale-independent path such as "/blog". */
 export function altLanguages(path = "/") {
   return {
-    ...Object.fromEntries(LANGS.map((lang) => [lang, localePath(lang, path)])),
+    ...Object.fromEntries(PUBLIC_LANGS.map((lang) => [lang, localePath(lang, path)])),
     "x-default": localePath("de", path),
   };
 }

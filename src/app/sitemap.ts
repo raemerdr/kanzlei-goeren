@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getDictionary, SITE } from "@/content";
-import { LANGS } from "@/content/types";
+import { PUBLIC_LANGS } from "@/content/types";
 import { localePath } from "@/lib/routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -16,14 +16,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return paths.flatMap((path) =>
-    LANGS.map((lang) => ({
+    PUBLIC_LANGS.map((lang) => ({
       url: `${SITE.url}${localePath(lang, path)}`,
       lastModified: new Date(),
       changeFrequency: path === "/" ? ("weekly" as const) : ("monthly" as const),
       priority: path === "/" ? 1 : 0.7,
       alternates: {
         languages: Object.fromEntries(
-          LANGS.map((alt) => [alt, `${SITE.url}${localePath(alt, path)}`]),
+          PUBLIC_LANGS.map((alt) => [alt, `${SITE.url}${localePath(alt, path)}`]),
         ),
       },
     })),

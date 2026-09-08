@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./LangSwitch.module.css";
 import { Flag } from "./Flags";
-import { LANGS, type Lang } from "@/content/types";
+import { PUBLIC_LANGS, type Lang } from "@/content/types";
 import { swapLocale } from "@/lib/routes";
 
 /** Endonyms, so each option is legible to the reader who wants it. */
@@ -34,7 +34,7 @@ export function LangSwitch({ current, label }: LangSwitchProps) {
 
   return (
     <div role="group" aria-label={label} className={styles.group}>
-      {LANGS.map((lang) => (
+      {PUBLIC_LANGS.map((lang) => (
         <Link
           key={lang}
           href={swapLocale(pathname, lang)}

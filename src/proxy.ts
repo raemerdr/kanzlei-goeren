@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { LANGS } from "@/content/types";
+import { PUBLIC_LANGS } from "@/content/types";
 
 /**
  * Locale routing.
@@ -19,7 +19,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
-  const prefixed = LANGS.some(
+  const prefixed = PUBLIC_LANGS.some(
     (lang) => lang !== "de" && (pathname === `/${lang}` || pathname.startsWith(`/${lang}/`)),
   );
   if (prefixed) {

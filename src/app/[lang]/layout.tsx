@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 import { fontVariables } from "../fonts";
 import "../globals.css";
 import { getDictionary, isLang, SITE } from "@/content";
-import { LANGS, type Lang } from "@/content/types";
+import { PUBLIC_LANGS, type Lang } from "@/content/types";
 import { altLanguages, localePath } from "@/lib/routes";
 
 export function generateStaticParams() {
-  return LANGS.map((lang) => ({ lang }));
+  return PUBLIC_LANGS.map((lang) => ({ lang }));
 }
 
 type LayoutProps = {
@@ -38,7 +38,7 @@ export async function generateMetadata({
       title: t.meta.title,
       description: t.meta.description,
       locale: t.meta.locale,
-      alternateLocale: LANGS.filter((other) => other !== lang).map(
+      alternateLocale: PUBLIC_LANGS.filter((other) => other !== lang).map(
         (other) => getDictionary(other as Lang).meta.locale,
       ),
       url: localePath(lang),

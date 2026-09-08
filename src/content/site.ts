@@ -1,6 +1,29 @@
+const FALLBACK_URL = "https://kanzlei-goeren.de";
+
+/**
+ * Absolute site origin, no trailing slash.
+ *
+ * `??` alone is not enough: an env var set to an empty string, or to a bare
+ * domain with no scheme, is neither null nor undefined, and it reaches
+ * `new URL(SITE.url)` in the root layout's metadataBase — which throws during
+ * static generation and fails the whole build. Anything that is not a usable
+ * absolute http(s) URL falls back instead.
+ */
+function siteUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (!raw) return FALLBACK_URL;
+  try {
+    const parsed = new URL(raw);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return FALLBACK_URL;
+    return parsed.origin;
+  } catch {
+    return FALLBACK_URL;
+  }
+}
+
 /** Kanzlei master data. Single source of truth for address, phone and links. */
 export const SITE = {
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kanzlei-goeren.de",
+  url: siteUrl(),
   name: "Rechtsanwaltskanzlei Meral Gören",
   shortName: "M | GÖREN",
   person: "Meral Gören",
