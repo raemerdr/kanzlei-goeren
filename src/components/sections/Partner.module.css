@@ -1,0 +1,176 @@
+/* One card: explanatory panel on paper, his details on a navy rail. */
+.card {
+  display: grid;
+  /* 60/40 — the rail scales with the card instead of pinning at a fixed
+     width and squeezing the panel at intermediate viewports. */
+  grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr);
+  background: var(--paper);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ panel */
+.panel {
+  min-width: 0;
+  padding: clamp(32px, 3.4vw, 56px);
+}
+
+.title {
+  margin-top: 16px;
+  max-width: 18ch;
+  color: var(--ink);
+}
+
+.text {
+  margin-top: 20px;
+  max-width: 56ch;
+  color: var(--muted);
+}
+
+.areasLabel {
+  margin-top: clamp(30px, 3vw, 44px);
+  font: 500 12px/18px var(--font-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* A ruled list, not chips — five items need no column arithmetic. */
+.areas {
+  margin-top: 14px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 2px;
+  border-bottom: 1px solid var(--line);
+  font: 500 16px/24px var(--font-sans);
+  color: var(--ink);
+}
+
+.area::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* --------------------------------------------------------------- identity */
+.identity {
+  /* Height of the photograph band. The padding and the scrim both key off it,
+     so the copy always starts on solid navy. */
+  --photo-h: clamp(240px, 20vw, 290px);
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(32px, 3vw, 48px);
+  padding-top: calc(var(--photo-h) + clamp(10px, 1.2vw, 22px));
+  background: var(--accent);
+  color: var(--on-dark);
+}
+
+.photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  width: 100%;
+  height: var(--photo-h);
+  object-fit: cover;
+  object-position: 50% 24%;
+}
+
+/* Dissolves the foot of the photograph into the navy ground. */
+.identity::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: var(--photo-h);
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 28, 44, 0) 0%,
+    rgba(4, 28, 44, 0) 44%,
+    rgba(4, 28, 44, 0.7) 80%,
+    rgb(4, 28, 44) 100%
+  );
+}
+
+.firm {
+  color: var(--on-dark);
+}
+
+.person {
+  margin-top: 6px;
+  font: 500 15px/24px var(--font-sans);
+  color: var(--on-dark-muted);
+}
+
+.bio {
+  margin-top: 16px;
+  color: var(--on-dark-muted);
+}
+
+.meta {
+  width: 100%;
+  margin-top: 26px;
+  padding-top: 22px;
+  margin-bottom: 32px;
+  border-top: 1px solid var(--line-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+}
+
+.metaKey {
+  font: 500 11px/16px var(--font-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
+}
+
+.metaValue {
+  margin: 0;
+  font: 400 15px/22px var(--font-sans);
+  color: var(--on-dark);
+}
+
+/* Pinned to the foot of the rail so the column reads as a finished block.
+   The margin on .meta is the floor when there is no spare height to absorb. */
+.cta {
+  margin-top: auto;
+}
+
+@media (max-width: 899px) {
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .title {
+    max-width: none;
+  }
+
+  /* Stacked, the rail has no spare height to absorb — .meta sets the gap. */
+  .cta {
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,344 @@
+/* ---------------------------------------------------------------------------
+   Design tokens — off-white and grey.
+
+   Two grounds carry the whole page: the off-white #fafbfd, stepping down to a
+   slightly deeper tint for bands and cards, and a cool dark grey running from
+   the dark sections to the footer. Nothing is pure white; the faint blue cast
+   in the light half is what keeps it from glaring.
+--------------------------------------------------------------------------- */
+:root {
+  --paper: #fafbfd;
+  --paper-deep: #eff1f5;
+  --dark: #2f3236;
+  --dark-deep: #1e2124;
+
+  --ink: #1c1f22;
+  --muted: #5f6570;
+
+  /* Secondary brand colour — button fills and the header, so the interactive
+     furniture reads as brand rather than as body text. */
+  --accent: #041c2c;
+  --accent-hover: #0d3450;
+  --on-dark: #fafbfd;
+  --on-dark-muted: #a2a8b2;
+
+  --line: rgba(28, 31, 34, 0.12);
+  --line-strong: rgba(28, 31, 34, 0.24);
+  --line-dark: rgba(250, 251, 253, 0.16);
+  --surface-dark: rgba(250, 251, 253, 0.05);
+
+  /* Image overlays, as an rgb() triplet. */
+  --scrim: 22 25 28;
+
+  /* One family throughout — see src/app/fonts.ts. */
+  --font-sans: var(--font-sans-raw), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-sans);
+
+  /* Cards sit on lift rather than outline. */
+  --shadow-card:
+    0 1px 2px rgba(28, 31, 34, 0.04),
+    0 6px 16px rgba(28, 31, 34, 0.05);
+  --shadow-card-hover:
+    0 2px 4px rgba(28, 31, 34, 0.05),
+    0 14px 30px rgba(28, 31, 34, 0.09);
+
+  --radius: 8px;
+  --container: 1320px;
+  --gutter: clamp(20px, 4.2vw, 60px);
+  --section-y: clamp(72px, 8vw, 120px);
+  --header-h: clamp(68px, 5.6vw, 84px);
+}
+
+/* --------------------------------------------------------------------- Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 26px;
+  -webkit-font-smoothing: antialiased;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------- Layout */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding: var(--section-y) 0;
+}
+
+.section--paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.section--paperDeep {
+  background: var(--paper-deep);
+  color: var(--ink);
+}
+
+.section--dark {
+  background: var(--dark);
+  color: var(--on-dark);
+}
+
+.section--accent {
+  background: var(--accent);
+  color: var(--on-dark);
+}
+
+.anchor {
+  scroll-margin-top: var(--header-h);
+}
+
+/* Centred section opener: eyebrow, serif heading, one line of support. */
+.sectionHead {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sectionHead > * + * {
+  margin-top: 20px;
+}
+
+/* --------------------------------------------------------------------- Type */
+/* Page titles carry the wordmark's weight and tracking, so the h1 and the
+   logo read as the same voice. Section headings stay light for contrast. */
+.display {
+  font: 700 clamp(38px, 5.4vw, 68px) / 1.06 var(--font-display);
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.h2 {
+  font: 600 clamp(30px, 3.6vw, 50px) / 1.1 var(--font-display);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.h3 {
+  font: 600 clamp(20px, 1.7vw, 24px) / 1.3 var(--font-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.h4 {
+  font: 600 18px/1.4 var(--font-display);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.lead {
+  font: 400 18px/28px var(--font-sans);
+  text-wrap: pretty;
+}
+
+.body {
+  font: 400 16px/26px var(--font-sans);
+  text-wrap: pretty;
+}
+
+.small {
+  font: 400 14px/22px var(--font-sans);
+}
+
+.eyebrow {
+  font: 500 12px/18px var(--font-sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.note {
+  font: 400 14px/22px var(--font-sans);
+  color: var(--muted);
+  font-style: italic;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.onDark .eyebrow,
+.onDark .muted {
+  color: var(--on-dark-muted);
+}
+
+/* ------------------------------------------------------------------ Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 28px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font: 500 14px/1 var(--font-sans);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+/* On a light ground. */
+.btn--primary {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.btn--primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn--secondary {
+  border-color: var(--line-strong);
+  color: var(--accent);
+}
+
+.btn--secondary:hover {
+  background: rgba(4, 28, 44, 0.06);
+}
+
+/* On a dark ground. */
+.btn--onDark {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.btn--onDark:hover {
+  background: var(--paper-deep);
+}
+
+.btn--ghost {
+  border-color: var(--line-dark);
+  color: var(--on-dark);
+}
+
+.btn--ghost:hover {
+  background: rgba(250, 251, 253, 0.08);
+}
+
+.btn[disabled] {
+  cursor: default;
+  opacity: 0.55;
+}
+
+/* Quiet inline link with a trailing arrow. */
+.linkArrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 14px/22px var(--font-sans);
+  color: var(--ink);
+  transition: gap 200ms ease;
+}
+
+.linkArrow:hover {
+  gap: 12px;
+}
+
+.onDark .linkArrow {
+  color: var(--on-dark);
+}
+
+/* ------------------------------------------------------------------- Motion */
+/* Scroll-driven, so it needs no JavaScript and cannot leave content stranded at
+   opacity 0 — browsers without view() timelines simply render it static. */
+@keyframes revealIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: revealIn linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 20%;
+    }
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

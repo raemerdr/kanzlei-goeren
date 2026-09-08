@@ -1,0 +1,55 @@
+.group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+}
+
+.link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+  color: inherit;
+}
+
+.flag {
+  display: block;
+  width: 22px;
+  height: 15px;
+  border-radius: 2px;
+  object-fit: cover;
+  /* A hairline keeps the white in each flag from bleeding into the light bar. */
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.14);
+  filter: grayscale(1);
+  opacity: 0.5;
+  transition:
+    filter 200ms ease,
+    opacity 200ms ease;
+}
+
+.link:hover .flag {
+  filter: grayscale(0.35);
+  opacity: 0.85;
+}
+
+/* The selected language is full colour AND carries a rule beneath it, so the
+   state is not signalled by colour alone. */
+.link[aria-current="true"] .flag {
+  filter: none;
+  opacity: 1;
+}
+
+.underline {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.link[aria-current="true"] .underline {
+  opacity: 1;
+}

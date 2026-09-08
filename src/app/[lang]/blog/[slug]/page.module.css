@@ -1,0 +1,22 @@
+.article {
+  max-width: 68ch;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.meta {
+  font: 500 12px/1 var(--font-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.paragraph {
+  color: var(--muted);
+}
+
+.back {
+  align-self: flex-start;
+  margin-top: 12px;
+}

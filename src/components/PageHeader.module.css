@@ -1,0 +1,35 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  color: var(--accent);
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cta {
+  height: 40px;
+  padding: 0 20px;
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.cta:hover {
+  background: var(--accent-hover);
+}

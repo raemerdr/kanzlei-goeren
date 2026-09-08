@@ -1,0 +1,17 @@
+.wrap {
+  max-width: 68ch;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.heading {
+  color: var(--ink);
+}
+
+.paragraph {
+  margin-top: 12px;
+  color: var(--muted);
+  /* Addresses in the source keep their line breaks. */
+  white-space: pre-line;
+}

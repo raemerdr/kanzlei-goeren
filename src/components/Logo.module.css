@@ -1,0 +1,48 @@
+/* Wordmark in the manner of the Pitblado reference: the name set heavy and
+   tightly tracked, with a small spaced-caps descriptor riding at cap height.
+   Their own mark is a bespoke, trademarked drawing — this is the same
+   typographic device applied to this Kanzlei's name, not a copy of it.
+   The M and its hairline divider are carried over from the original identity.
+
+   Drawn in currentColor, so it works on the light header and on the footer. */
+.logo {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 5px;
+  flex: none;
+  color: inherit;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: 700 clamp(20px, 1.7vw, 25px) / 1 var(--font-sans);
+  letter-spacing: -0.045em;
+}
+
+.logo[data-size="lg"] .mark {
+  font-size: 29px;
+}
+
+.divider {
+  display: block;
+  width: 1px;
+  height: 0.74em;
+  background: currentColor;
+  opacity: 0.45;
+  flex: none;
+}
+
+.descriptor {
+  /* Sits at the top right, dropped to sit on the cap line of the wordmark. */
+  margin-top: 3px;
+  font: 600 8px/1 var(--font-sans);
+  letter-spacing: 0.18em;
+  opacity: 0.75;
+}
+
+.logo[data-size="lg"] .descriptor {
+  margin-top: 4px;
+  font-size: 9px;
+}

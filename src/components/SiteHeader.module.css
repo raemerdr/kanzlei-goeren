@@ -1,0 +1,188 @@
+/* A negative bottom margin pulls the hero up by exactly the header height, so
+   the bar sits on the photograph instead of above it. Sticky (rather than
+   fixed) keeps it in flow, which the mobile menu positions against. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  margin-bottom: calc(-1 * var(--header-h));
+  background: var(--paper);
+  color: var(--accent);
+  transition:
+    background-color 260ms ease,
+    color 260ms ease;
+}
+
+/* Clear over the hero while the page is at the top. Everything inside is drawn
+   in currentColor, so the whole bar inverts with this one declaration. */
+.header[data-at-top="true"] {
+  background: transparent;
+  color: var(--on-dark);
+}
+
+/* The hero photograph is bright exactly where the navigation sits, so the clear
+   bar needs a graded ground of its own or the links drop to ~1.6:1. It bleeds
+   past the bar and fades out, so it reads as light falloff rather than a band. */
+.header[data-at-top="true"]::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -40px;
+  background: linear-gradient(
+    180deg,
+    rgb(var(--scrim) / 0.72) 0%,
+    rgb(var(--scrim) / 0.55) 62%,
+    rgb(var(--scrim) / 0) 100%
+  );
+  pointer-events: none;
+}
+
+/* A short probe at the document origin: once it scrolls out of view the header
+   is no longer at the top. */
+.sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 24px;
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navLink {
+  font: 400 14px/1 var(--font-sans);
+  color: inherit;
+  opacity: 0.62;
+  transition: opacity 180ms ease;
+}
+
+.navLink:hover {
+  opacity: 1;
+}
+
+/* Dimmed links are fine on the solid bar; over the photograph they need
+   every bit of contrast they can get. */
+.header[data-at-top="true"] .navLink {
+  opacity: 1;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* The CTA inverts with the bar: solid ink on the light header, solid light on
+   the photograph. */
+.cta {
+  height: 40px;
+  padding: 0 20px;
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.cta:hover {
+  background: var(--accent-hover);
+}
+
+.header[data-at-top="true"] .cta {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.header[data-at-top="true"] .cta:hover {
+  background: var(--paper-deep);
+}
+
+.mobileActions {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.burger {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.burger span {
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+}
+
+/* The menu only ever opens with the bar in its filled state — SiteHeader forces
+   data-at-top false while it is open — so it is always the light panel. */
+.menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--paper);
+  color: var(--accent);
+  box-shadow: 0 18px 40px rgba(28, 31, 34, 0.1);
+}
+
+.menuInner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 8px var(--gutter) 24px;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  border-bottom: 1px solid var(--line);
+  font: 400 16px/1 var(--font-sans);
+  color: var(--accent);
+}
+
+.menuCta {
+  margin-top: 24px;
+  width: 100%;
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.menuCta:hover {
+  background: var(--accent-hover);
+}
+
+@media (max-width: 1023px) {
+  .nav,
+  .actions {
+    display: none;
+  }
+
+  .mobileActions {
+    display: flex;
+  }
+}

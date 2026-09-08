@@ -1,0 +1,91 @@
+.banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 60;
+  margin: 0 auto;
+  max-width: 520px;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 48px rgba(28, 31, 34, 0.14);
+  padding: 28px;
+}
+
+.text {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.text a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.options {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font: 400 15px/22px var(--font-sans);
+}
+
+.option--toggle {
+  cursor: pointer;
+}
+
+.optionName {
+  font-weight: 500;
+}
+
+.optionHint {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.option input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ink);
+  flex: none;
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.compact {
+  height: 42px;
+  padding: 0 20px;
+}
+
+.textButton {
+  height: 42px;
+  padding: 0 6px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: 500 14px/1 var(--font-sans);
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.textButton:hover {
+  color: var(--ink);
+}

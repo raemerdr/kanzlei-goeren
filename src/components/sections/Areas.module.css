@@ -1,0 +1,160 @@
+/* Three across, two rows. Flex rather than grid so the two cards left over on
+   the second row centre under the three above instead of hugging the left edge
+   with a hole beside them — CSS Grid cannot centre a partial final row. */
+.grid {
+  margin-top: clamp(40px, 4.5vw, 64px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  /* Own stacking context, so the hover wash can sit above the card background
+     but below the copy without giving every child a z-index. */
+  isolation: isolate;
+  flex: 0 1 calc((100% - 40px) / 3);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(28px, 2.6vw, 38px);
+  background: var(--paper-deep);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 240ms ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Hover fills the card with navy, wiping out of the top-right corner — the
+   icon disc appears to grow into the whole card. The circle is centred on the
+   corner and scaled past the card's far diagonal. */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(50%, -50%) scale(0);
+  transition: transform 520ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover::before {
+  transform: translate(50%, -50%) scale(10);
+}
+
+.card:hover .badge {
+  background: transparent;
+}
+
+.card:hover .cardTitle {
+  color: var(--paper);
+}
+
+.card:hover .cardText {
+  color: var(--on-dark-muted);
+}
+
+.card:hover .more {
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card::before {
+    transition: none;
+  }
+}
+
+/* Flex only equalises cards within a line, so the two rows can otherwise differ
+   whenever a title or description wraps one line deeper. These floors are
+   measured against the longest copy across all three languages at each column
+   width, with headroom. */
+.card {
+  min-height: 292px;
+}
+
+@media (min-width: 1300px) {
+  .card {
+    min-height: 264px;
+  }
+}
+
+@media (max-width: 699px) {
+  .card {
+    min-height: 260px;
+  }
+}
+
+/* The two on the second row split it in half rather than sitting at a third
+   each — the row fills, so nothing needs centring and no gap is left over. */
+.card:nth-last-child(-n + 2) {
+  flex-basis: calc((100% - 20px) / 2);
+}
+
+@media (max-width: 1023px) {
+  .card,
+  .card:nth-last-child(-n + 2) {
+    flex-basis: calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width: 699px) {
+  .card,
+  .card:nth-last-child(-n + 2) {
+    flex-basis: 100%;
+  }
+}
+
+/* A quarter-disc filling the card's top-right corner, carrying the area's icon.
+   The outer corner takes the card's own radius; the inner edge curves away. */
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  border-radius: 0 var(--radius) 0 999px;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Pushes the icon up and out, into the solid part of the quarter. */
+  padding: 0 3px 12px 12px;
+  color: var(--paper);
+  transition: background-color 240ms ease;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+}
+
+.cardTitle {
+  /* Clears the corner disc so long titles never run under it. */
+  padding-right: 56px;
+  font-size: clamp(21px, 1.9vw, 27px);
+  color: var(--ink);
+  transition: color 300ms ease;
+}
+
+.cardText {
+  margin-top: 14px;
+  color: var(--muted);
+  transition: color 300ms ease;
+}
+
+/* Pins every link to the same baseline across a row whose titles wrap to
+   different depths. */
+.more {
+  margin-top: auto;
+  padding-top: 28px;
+  transition: color 300ms ease, gap 200ms ease;
+}

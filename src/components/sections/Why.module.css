@@ -1,0 +1,42 @@
+/* Four columns divided by hairlines, in the manner of the reference's light
+   band. The rules collapse away as the columns stack. */
+.grid {
+  margin-top: clamp(40px, 4.5vw, 64px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 40px clamp(28px, 3vw, 48px);
+}
+
+.item {
+  padding-left: clamp(28px, 3vw, 48px);
+  border-left: 1px solid var(--line-dark);
+}
+
+/* No rule on the first column of each row. */
+.item:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+@media (min-width: 1000px) {
+  .item:nth-child(4n + 1) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+.num {
+  font: 500 12px/1 var(--font-sans);
+  letter-spacing: 0.16em;
+  color: var(--on-dark-muted);
+}
+
+.itemTitle {
+  margin-top: 16px;
+  color: var(--on-dark);
+}
+
+.itemText {
+  margin-top: 12px;
+  color: var(--on-dark-muted);
+}

@@ -1,0 +1,88 @@
+/* One full-bleed photograph carries the section; the copy sits over it in a
+   column on the right, with the shade weighted to that side so the image stays
+   readable on the left. */
+.section {
+  position: relative;
+  background: var(--dark);
+  overflow: hidden;
+}
+
+.media,
+.scrim {
+  position: absolute;
+  inset: 0;
+}
+
+.media img {
+  object-fit: cover;
+}
+
+.scrim {
+  background:
+    linear-gradient(
+      90deg,
+      rgb(var(--scrim) / 0.35) 0%,
+      rgb(var(--scrim) / 0.6) 42%,
+      rgb(var(--scrim) / 0.86) 72%
+    ),
+    rgb(var(--scrim) / 0.15);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  min-height: clamp(520px, 52vw, 680px);
+  align-items: center;
+}
+
+.copy {
+  flex: 0 1 560px;
+  min-width: 0;
+}
+
+.title {
+  margin-top: 18px;
+}
+
+.p1 {
+  margin-top: 26px;
+  color: var(--on-dark-muted);
+}
+
+.p2 {
+  margin-top: 16px;
+  color: var(--on-dark-muted);
+}
+
+.background {
+  margin-top: 16px;
+  color: var(--on-dark-muted);
+}
+
+.cta {
+  margin-top: 32px;
+}
+
+/* Below the split, the copy takes the full width and the shade goes uniform. */
+@media (max-width: 899px) {
+  .scrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgb(var(--scrim) / 0.55) 0%,
+        rgb(var(--scrim) / 0.8) 100%
+      ),
+      rgb(var(--scrim) / 0.25);
+  }
+
+  .inner {
+    justify-content: flex-start;
+    min-height: 0;
+  }
+
+  .copy {
+    flex: 1 1 auto;
+  }
+}

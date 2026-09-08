@@ -1,0 +1,35 @@
+.footer {
+  background: var(--accent);
+  color: var(--on-dark-muted);
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 28px var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 80px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.links a {
+  font: 400 14px/22px var(--font-sans);
+  transition: color 180ms ease;
+}
+
+.links a:hover {
+  color: var(--on-dark);
+}
+
+.copyright {
+  font: 400 14px/22px var(--font-sans);
+}

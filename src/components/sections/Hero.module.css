@@ -1,0 +1,105 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  background: var(--dark-deep);
+  color: var(--on-dark);
+  overflow: hidden;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+}
+
+.media img {
+  object-fit: cover;
+}
+
+/* No overlay on desktop: the photograph carries its own shade — a dark wall
+   exactly where the copy sits — and every line of type clears WCAG AA against
+   the bare image. The copy widths below are what keep that true. */
+
+.inner {
+  position: relative;
+  /* Above .hero::after — a generated last child otherwise paints over the copy. */
+  z-index: 1;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: calc(var(--header-h) + clamp(56px, 7vw, 96px)) var(--gutter) clamp(56px, 7vw, 96px);
+  text-align: left;
+}
+
+.copy {
+  max-width: 700px;
+}
+
+.label {
+  color: var(--on-dark-muted);
+}
+
+/* The opening clause sits back so the closing phrase carries the emphasis —
+   the palette has no bright accent, so the contrast is in tone, not hue. */
+.title {
+  margin-top: 22px;
+  color: rgb(250 251 253 / 0.62);
+}
+
+.accent {
+  color: var(--on-dark);
+}
+
+.text {
+  margin-top: 22px;
+  /* Kept narrow so the line never runs past the dark wall into the glazing. */
+  max-width: 430px;
+  color: var(--on-dark);
+}
+
+.actions {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* A 16:9 frame cropped to a portrait viewport loses the right-hand side, which
+   is where the subject stands. Below the split, bias the crop toward her, drop
+   the copy beneath her, and give it a gradient to sit on — the portrait crop
+   has no dark wall left in frame. */
+@media (max-width: 899px) {
+  .media img {
+    object-position: 62% center;
+  }
+
+  .hero {
+    align-items: flex-end;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(var(--scrim) / 0.3) 0%,
+      rgb(var(--scrim) / 0.1) 28%,
+      rgb(var(--scrim) / 0.8) 66%,
+      rgb(var(--scrim) / 0.94) 100%
+    );
+    pointer-events: none;
+  }
+
+  .inner {
+    padding-top: calc(var(--header-h) + 32px);
+    padding-bottom: clamp(48px, 9vw, 72px);
+  }
+
+  .copy,
+  .text {
+    max-width: none;
+  }
+}
